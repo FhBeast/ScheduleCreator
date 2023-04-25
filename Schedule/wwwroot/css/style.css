@@ -30,6 +30,8 @@
 /* Main menu */
 
 .mainmenu-area {
+    position: sticky;
+    top: 0;
     background: var(--main-color);
     font-family: var(--main-font-family);
     text-transform: uppercase;
@@ -143,6 +145,10 @@
     text-decoration: none;
     color: var(--main-color);
 }
+
+    .copyright a:hover {
+        color: #33CCCC;
+    }
 
 /* Buttons */
 
