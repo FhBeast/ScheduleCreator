@@ -23,17 +23,19 @@
         <div class="container">
             <div class="row">
                 <ul>
-                    <li class="active"><a asp-controller="Home" asp-action="Index">Главная</a></li>
+                    <li class="active"><a class="button" asp-controller="Home" asp-action="Index">Главная</a></li>
                     @if (!User.Identity.IsAuthenticated)
                     {
-                        <li><a asp-controller="Account" asp-action="Login">Вход</a></li>
-                        <li><a asp-controller="Account" asp-action="Register">Регистрация</a></li>
+                        <li><a class="button" asp-controller="Account" asp-action="Login">Вход</a></li>
+                        <li><a class="button" asp-controller="Account" asp-action="Register">Регистрация</a></li>
                     }
                     else
                     {
+                        <li><a class="button" asp-controller="Account" asp-action="404">Создать</a></li>
+                        <li><a class="button" asp-controller="Account" asp-action="404">Найти</a></li>
                         <li class="list-right">
                             <form method="post" asp-controller="Account" asp-action="Logout">
-                                <input type="submit" value="Выход" />
+                                <input class="button" type="submit" value="Выход" />
                             </form>
                         </li>
                         <li class="list-right"><p>@User.Identity.Name</p></li>
