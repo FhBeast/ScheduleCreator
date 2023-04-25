@@ -1,24 +1,33 @@
 ﻿@model Schedule.ViewModels.LoginViewModel
-
-<h2>Вход</h2>
-<form method="post" asp-controller="Account" asp-action="Login"
-      asp-route-returnUrl="@Model.ReturnUrl">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div class="form-group">
-        <label class="control-label" asp-for="Email"></label><br />
-        <input class="form-control" asp-for="Email" />
-        <span class="text-danger" asp-validation-for="Email"></span>
+<div class="content-area">
+    <div class="container">
+        <div class="content-center">
+            <div class="window">
+                <div class="big-title-area">
+                    <h2>Вход</h2>
+                </div>
+                <form method="post" asp-controller="Account" asp-action="Login"
+                      asp-route-returnUrl="@Model.ReturnUrl">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="form-group indent-bottom">
+                        <label class="control-label" asp-for="Email"></label><br />
+                        <input class="form-control" placeholder="Введиите email" asp-for="Email" />
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+                    <div class="indent-bottom">
+                        <label class="control-label" asp-for="Password"></label><br />
+                        <input class="form-control" placeholder="Введиите пароль" asp-for="Password" />
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+                    <div>
+                        <input asp-for="RememberMe" />
+                        <label asp-for="RememberMe"></label>
+                    </div>
+                    <div>
+                        <input class="button" type="submit" value="Войти" />
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <div>
-        <label class="control-label" asp-for="Password"></label><br />
-        <input class="form-control" asp-for="Password" />
-        <span class="text-danger" asp-validation-for="Password"></span>
-    </div>
-    <div style="margin: 10px">
-        <input asp-for="RememberMe" />
-        <label asp-for="RememberMe"></label>
-    </div>
-    <div>
-        <input type="submit" value="Войти" />
-    </div>
-</form>
+</div>

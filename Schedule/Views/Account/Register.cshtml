@@ -1,53 +1,46 @@
 ﻿@model Schedule.ViewModels.RegisterViewModel
 
-<div class="big-title-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Регистрация</h2>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="content-area">
     <div class="container">
-        <div class="window-center ">
-            <div class="card col-md-3">
+        <div class="content-center">
+            <div class="window">
+                <div class="big-title-area">
+                    <h2>Регистрация</h2>
+                </div>
                 <form method="post" asp-controller="Account" asp-action="Register">
                     <div asp-validation-summary="ModelOnly"></div>
-                    <div>
+                    <div class="indent-bottom">
                         <label class="control-label" asp-for="Email"></label><br />
-                        <input class="form-control" type="text" placeholder="Введите фамилию" asp-for="Email" />
+                        <input class="form-control" placeholder="Введиите email" asp-for="Email" />
                         <span class="text-danger" asp-validation-for="Email"></span>
                     </div>
-                    <div>
+                    <div class="indent-bottom">
                         <label class="control-label" asp-for="FirstName"></label><br />
-                        <input class="form-control" type="text" placeholder="Введите фамилию" asp-for="FirstName" />
+                        <input class="form-control" placeholder="Введите имя" asp-for="FirstName" />
                         <span class="text-danger" asp-validation-for="FirstName"></span>
                     </div>
-                    <div>
+                    <div class="indent-bottom">
                         <label class="control-label" asp-for="LastName"></label><br />
-                        <input class="form-control" type="text" placeholder="Введите фамилию" asp-for="LastName" />
+                        <input class="form-control" placeholder="Введите фамилию" asp-for="LastName" />
                         <span class="text-danger" asp-validation-for="LastName"></span>
                     </div>
-                    <div>
+                    <div class="indent-bottom">
                         <label class="control-label" asp-for="Surname"></label>
-                        <input class="form-control" type="text" placeholder="Введите отчество" asp-for="Surname">
+                        <input class="form-control" placeholder="Введите отчество" asp-for="Surname">
                         <span class="text-danger" asp-validation-for="Surname"></span>
                     </div>
-                    <div>
+                    <div class="indent-bottom">
                         <label class="control-label" asp-for="Password"></label><br />
-                        <input class="form-control" asp-for="Password" />
+                        <input class="form-control" placeholder="Введите пароль" asp-for="Password" />
                         <span class="text-danger" asp-validation-for="Password"></span>
                     </div>
                     <div>
                         <label class="control-label" asp-for="PasswordConfirm"></label><br />
-                        <input class="form-control" asp-for="PasswordConfirm" />
+                        <input class="form-control" placeholder="Повторите пароль" asp-for="PasswordConfirm" />
                         <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
                     </div>
                     <div>
-                        <input type="submit" value="Регистрация" />
+                        <input class="button" type="submit" value="Регистрация" />
                     </div>
                 </form>
             </div>
