@@ -20,6 +20,7 @@ public class RegisterViewModel
     public string? Surname { get; set; }
 
     [Required]
+    [StringLength(30, ErrorMessage = "Поле {0} должно иметь минимум {2} и максимум {1} символов.", MinimumLength = 8)]
     [DataType(DataType.Password)]
     [Display(Name = "Пароль")]
     public string? Password { get; set; }
