@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css">
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <div class="logo">
+        <div class="container">
+            <div class="row">
+                <h1><a asp-controller="Home" asp-action="Index">Schedule<span>Creator</span></a></h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="mainmenu-area">
+        <div class="container">
+            <div class="row">
+                <ul>
+                    <li class="active"><a asp-controller="Home" asp-action="Index">Главная</a></li>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-controller="Account" asp-action="Login">Вход</a></li>
+                        <li><a asp-controller="Account" asp-action="Register">Регистрация</a></li>
+                    }
+                    else
+                    {
+                        <li class="list-right">
+                            <form method="post" asp-controller="Account" asp-action="Logout">
+                                <input type="submit" value="Выход" />
+                            </form>
+                        </li>
+                        <li class="list-right"><p>@User.Identity.Name</p></li>
+                    }
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    @RenderBody()
+
+    <div class="footer-bottom-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="copyright">
+                        <p>&copy; 2023 ComputerHardwareStore. All Rights Reserved. Coded with by <a href="https://github.com/FhBeast" target="_blank">David Bashko</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

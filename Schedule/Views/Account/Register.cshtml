@@ -1,0 +1,56 @@
+﻿@model Schedule.ViewModels.RegisterViewModel
+
+<div class="big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Регистрация</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-area">
+    <div class="container">
+        <div class="window-center ">
+            <div class="card col-md-3">
+                <form method="post" asp-controller="Account" asp-action="Register">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div>
+                        <label class="control-label" asp-for="Email"></label><br />
+                        <input class="form-control" type="text" placeholder="Введите фамилию" asp-for="Email" />
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+                    <div>
+                        <label class="control-label" asp-for="FirstName"></label><br />
+                        <input class="form-control" type="text" placeholder="Введите фамилию" asp-for="FirstName" />
+                        <span class="text-danger" asp-validation-for="FirstName"></span>
+                    </div>
+                    <div>
+                        <label class="control-label" asp-for="LastName"></label><br />
+                        <input class="form-control" type="text" placeholder="Введите фамилию" asp-for="LastName" />
+                        <span class="text-danger" asp-validation-for="LastName"></span>
+                    </div>
+                    <div>
+                        <label class="control-label" asp-for="Surname"></label>
+                        <input class="form-control" type="text" placeholder="Введите отчество" asp-for="Surname">
+                        <span class="text-danger" asp-validation-for="Surname"></span>
+                    </div>
+                    <div>
+                        <label class="control-label" asp-for="Password"></label><br />
+                        <input class="form-control" asp-for="Password" />
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+                    <div>
+                        <label class="control-label" asp-for="PasswordConfirm"></label><br />
+                        <input class="form-control" asp-for="PasswordConfirm" />
+                        <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
+                    </div>
+                    <div>
+                        <input type="submit" value="Регистрация" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

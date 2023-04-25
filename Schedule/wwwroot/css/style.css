@@ -1,0 +1,137 @@
+/* Logo */
+
+.logo h1 {
+    font-family: CENTURY GOTHIC;
+    font-size: 40px;
+    margin: 40px 0;
+}
+
+    .logo h1 a {
+        color: #999;
+        text-decoration: none;
+    }
+
+        .logo h1 a span {
+            color: #4671D5;
+        }
+
+        .logo h1 a:hover {
+            opacity: .7
+        }
+
+/* Main menu */
+
+.mainmenu-area {
+    background: #4671D5;
+    font-family: CENTURY GOTHIC;
+    text-transform: uppercase;
+    width: 100%;
+    z-index: 999;
+}
+
+    .mainmenu-area .account-area {
+        float: right;
+    }
+
+    .mainmenu-area p {
+        display: block;
+        color: #222;
+        font-size: 16px;
+        font-size: 14px;
+        text-decoration: none;
+        padding: 15px;
+        margin-bottom: 0;
+    }
+
+    .mainmenu-area li {
+        display: block;
+        float: left;
+    }
+
+    .mainmenu-area .list-right {
+        float: right;
+    }
+
+    .mainmenu-area ul {
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+        .mainmenu-area ul li a, .mainmenu-area input {
+            display: block;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            padding: 15px !important;
+        }
+
+    .mainmenu-area li:hover a, .mainmenu-area li.active a {
+        background: #222
+    }
+
+/* Big title */
+
+.big-title-area {
+    background: url(../img/crossword.png) repeat scroll 0 0 #4671D5
+}
+
+    .big-title-area h2 {
+        font-family: CENTURY GOTHIC;
+        font-size: 50px;
+        font-weight: 200;
+        text-align: center;
+        margin: 0;
+        padding: 20px 0;
+        color: #fff;
+    }
+
+/* Content */
+
+.content-area {
+    padding: 50px 0 50px;
+}
+
+.window-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Footer */
+.footer-bottom-area {
+    position: absolute;
+    bottom: 0;
+    height: 80px;
+    width: 100%;
+    background: #000;
+    color: #fff
+}
+
+    .footer-bottom-area .copyright {
+        margin: 20px 0 0;
+    }
+
+.copyright a {
+    text-decoration: none;
+    color: #4671D5;
+}
+
+/* Input */
+
+input[type="submit"], button[type="submit"] {
+    padding: 11px 15px;
+}
+
+input[type="submit"], button[type=submit] {
+    background: none repeat scroll 0 0 #4671D5;
+    border: medium none;
+    color: #fff;
+    padding: 11px 20px;
+    text-transform: uppercase;
+}
+
+    input[type="submit"]:hover, button[type=submit]:hover {
+        background-color: #222
+    }
