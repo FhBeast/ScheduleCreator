@@ -93,6 +93,21 @@
         color: #fff;
     }
 
+
+.small-title-area {
+    background: url(../img/crossword.png) repeat scroll 0 0 var(--main-color);
+}
+
+    .small-title-area p {
+        font-family: var(--main-font-family);
+        font-size: 16px;
+        font-weight: 100;
+        text-align: center;
+        margin: 0;
+        padding: 15px 0;
+        color: #fff;
+    }
+
 /* Content */
 
 .content-area {
@@ -101,9 +116,21 @@
 
 .content-center {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
+.reg-log-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .reg-log-menu .button {
+        margin: 5px;
+    }
+
 
 .window {
     border: solid 1px;
@@ -128,17 +155,21 @@
     border-color: #bbb;
     border-radius: var(--window-form-border-radius);
     box-shadow: 0px 0px 20px #ddd;
-    padding: 25px;
     width: 250px;
     height: 250px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
+    .single-schedule-element p {
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+
     .single-schedule-element .button {
-        width: 100%;
-        float: right;
+        margin: 25px;
         margin-top: auto;
     }
 
@@ -151,11 +182,19 @@
         align-items: center;
     }
 
-.new-schedule-element {
-    padding: 0px;
-    overflow: hidden;
+.schedule-name {
+    font-size: 18px;
+    font-weight: 700;
 }
 
+.schedule-stat {
+    color: #555;
+    margin-top: auto;
+}
+
+    .schedule-stat span {
+        font-weight: 700;
+    }
 
 /* Footer */
 

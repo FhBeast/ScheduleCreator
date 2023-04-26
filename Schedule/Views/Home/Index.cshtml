@@ -15,22 +15,36 @@
 <div class="content-area">
     <div class="container">
         <div class="row">
-
-            <div class="col-md-3">
-                <div class="single-schedule-element">
-                    <div class="schedule-name">Название расписания</div>
-                    <div class="schedule-employees-number">Количество сотрудников: <span>34</span></div>
-                    <div class="schedule-shifts-number">Количество смен: <span>2</span></div>
-                    <a class="button" asp-controller="Account" asp-action="Login">Редактировать</a>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <div class="content-center">
+                    <h2>Добро пожаловать</h2>
+                    <p>Чтобы начать работу с расписаниями создайте учетную запись или войдите в уже существующую</p>
                 </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="new-schedule-element">
-                    <a class="button" asp-controller="Account" asp-action="Login">Создать новое расписание</a>
+                <div class="reg-log-menu">
+                    <a class="button" asp-controller="Account" asp-action="Login">Вход</a>
+                    <a class="button" asp-controller="Account" asp-action="Register">Регистрация</a>
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="col-md-3">
+                    <div class="single-schedule-element">
+                        <div class="small-title-area schedule-name">
+                            <p>Название расписания</p>
+                        </div>
+                        <div class="schedule-stat"><p>Cотрудников: <span>34</span></p></div>
+                        <div class="schedule-stat"><p>Cмен: <span>2</span></p></div>
+                        <a class="button" asp-controller="Account" asp-action="Login">Редактировать</a>
+                    </div>
+                </div>
 
+                <div class="col-md-3">
+                    <div class="new-schedule-element">
+                        <a class="button" asp-controller="Account" asp-action="Login">Создать новое расписание</a>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
