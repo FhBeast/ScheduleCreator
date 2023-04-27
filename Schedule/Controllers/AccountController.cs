@@ -32,11 +32,10 @@ public class AccountController : Controller
                 LastName = model.LastName,
                 Surname = model.Surname,
             };
-            // добавляем пользователя
+            
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                // установка куки
                 await _signInManager.SignInAsync(user, false);
                 return RedirectToAction("Index", "Home");
             }
@@ -52,7 +51,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    public IActionResult Login(string returnUrl = null)
+    public IActionResult Login(string? returnUrl = null)
     {
         return View(new LoginViewModel { ReturnUrl = returnUrl });
     }
