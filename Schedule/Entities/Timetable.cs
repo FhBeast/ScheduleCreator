@@ -8,8 +8,9 @@ namespace Schedule.Entities;
 [Index(nameof(TimetableName), IsUnique = true)]
 public class Timetable : BaseEntity
 {
-    public string TimetableName { get; set; }
+    public string? TimetableName { get; set; }
+    public string? Owner { get; set; }
     public string? Weekend { get; set; }
-    public List<Shift> Shifts { get; set; }
-    public List<Employee> Employees { get; set; }
+    public List<Shift>? Shifts { get; set; }
+    public List<Employee>? Employees { get; set; }
 }
