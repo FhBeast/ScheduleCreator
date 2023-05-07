@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Schedule.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace Schedule.Models;
 public class User : IdentityUser

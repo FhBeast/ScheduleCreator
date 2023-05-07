@@ -23,9 +23,12 @@
                         <input class="form-check-input" asp-for="RememberMe" />
                         <label class="form-check-label" asp-for="RememberMe"></label>
                     </div>
-                    <div>
+                    <div class="indent-bottom">
                         <input class="button" type="submit" value="Войти" />
                     </div>
+                    <p>
+                        Или создайте аккаунт - <a asp-controller="Account" asp-action="Register">Регистрация</a>
+                    </p>
                 </form>
             </div>
         </div>

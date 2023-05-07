@@ -1,0 +1,27 @@
+﻿@model Schedule.ViewModels.CreateTimetableViewModel
+<div class="content-area">
+    <div class="container">
+        <div class="content-center">
+            <div class="window">
+                <div class="big-title-area">
+                    <h2>Создать расписание</h2>
+                </div>
+                <form method="post" asp-controller="Timetable" asp-action="AddTimetable">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="form-group indent-bottom">
+                        <label class="control-label" asp-for="TimetableName"></label><br />
+                        <input class="form-control" placeholder="Введиите название расписания" asp-for="TimetableName" />
+                        <span class="text-danger" asp-validation-for="TimetableName"></span>
+                    </div>
+                    <div class="indent-bottom">
+                        <label class="control-label" asp-for="Owner"></label> <br />
+                        <span>@User.Identity.Name</span>
+                    </div>
+                    <div class="indent-bottom">
+                        <input class="button" type="submit" value="Создать" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

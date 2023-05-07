@@ -12,7 +12,7 @@ using Schedule.Models;
 namespace Schedule.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230426210144_InitialCreate")]
+    [Migration("20230507174135_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -202,12 +202,16 @@ namespace Schedule.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("EmployeesNumber")
+                        .HasColumnType("int");
+
                     b.Property<string>("End")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsQuaranteeWeekend")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Start")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("TimetableId")
@@ -228,8 +232,13 @@ namespace Schedule.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Owner")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TimetableName")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Weekend")
@@ -238,7 +247,10 @@ namespace Schedule.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("TimetableName")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[TimetableName] IS NOT NULL");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Timetables");
                 });
@@ -384,9 +396,21 @@ namespace Schedule.Migrations
 
             modelBuilder.Entity("Schedule.Entities.Timetable", b =>
                 {
+                    b.HasOne("Schedule.Models.User", null)
+                        .WithMany("Timetables")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Schedule.Entities.Timetable", b =>
+                {
                     b.Navigation("Employees");
 
                     b.Navigation("Shifts");
+                });
+
+            modelBuilder.Entity("Schedule.Models.User", b =>
+                {
+                    b.Navigation("Timetables");
                 });
 #pragma warning restore 612, 618
         }

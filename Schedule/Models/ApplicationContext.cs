@@ -11,7 +11,7 @@ public class ApplicationContext : IdentityDbContext<User>
         Database.EnsureCreated();
     }
 
-    public DbSet<Timetable> Timetables { get; set; }
+    public DbSet<Timetable> Timetables { get; set; }    
     public DbSet<Shift> Shifts { get; set; }
     public DbSet<Employee> Employees { get; set; }
 }

@@ -54,20 +54,6 @@ namespace Schedule.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Timetables",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TimetableName = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Weekend = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Timetables", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -174,6 +160,27 @@ namespace Schedule.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Timetables",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TimetableName = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Owner = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Weekend = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Timetables", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Timetables_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table => new
                 {
@@ -203,8 +210,10 @@ namespace Schedule.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Start = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    End = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Start = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    End = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeesNumber = table.Column<int>(type: "int", nullable: false),
+                    IsQuaranteeWeekend = table.Column<bool>(type: "bit", nullable: false),
                     TimetableId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -270,7 +279,13 @@ namespace Schedule.Migrations
                 name: "IX_Timetables_TimetableName",
                 table: "Timetables",
                 column: "TimetableName",
-                unique: true);
+                unique: true,
+                filter: "[TimetableName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Timetables_UserId",
+                table: "Timetables",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -301,10 +316,10 @@ namespace Schedule.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Timetables");
 
             migrationBuilder.DropTable(
-                name: "Timetables");
+                name: "AspNetUsers");
         }
     }
 }
