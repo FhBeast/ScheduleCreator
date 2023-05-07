@@ -6,15 +6,18 @@ namespace Schedule.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly ApplicationContext _applicationContext;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, ApplicationContext applicationContext)
     {
         _logger = logger;
+        _applicationContext = applicationContext;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var timetables = _applicationContext.Timetables.ToList();
+        return View(timetables);
     }
 
     public IActionResult Privacy()
