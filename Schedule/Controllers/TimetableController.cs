@@ -59,6 +59,7 @@ namespace Schedule.Controllers
         [HttpGet]
         public IActionResult EditTimetable(int id)
         {
+
             ViewBag.id = id;
             var timetable = _applicationContext.Timetables.Include(x => x.Shifts).FirstOrDefault(x => x.Id == id);
             var username = User?.Identity?.Name;
@@ -84,7 +85,7 @@ namespace Schedule.Controllers
                     }
                 }
 
-                var timetableViewModel = new TimetableViewModel()
+                var model = new TimetableViewModel()
                 {
                     TimetableName = timetable.TimetableName,
                     Owner = timetable.Owner,
@@ -100,10 +101,10 @@ namespace Schedule.Controllers
 
                 if (shiftViewModels.Count <= 3)
                 {
-                    timetableViewModel.NewShiftViewModel = new ShiftViewModel();
+                    model.NewShiftViewModel = new ShiftViewModel();
                 }
 
-                return View(timetableViewModel);
+                return View(model);
             }
 
             return NotFound();
@@ -111,7 +112,7 @@ namespace Schedule.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> EditTimetable(int id, TimetableViewModel model)
+        public async Task<IActionResult> EditTimetable(int id, TimetableViewModel model, bool generateTimetable = false)
         {
             ViewBag.id = id;
 
@@ -275,6 +276,62 @@ namespace Schedule.Controllers
                 }
 
                 return View(model);
+            }
+
+            return NotFound();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddShift(int id, TimetableViewModel model)
+        {
+            ViewBag.id = id;
+            var timetable = _applicationContext.Timetables.Include(x => x.Shifts).FirstOrDefault(x => x.Id == id);
+
+            if (timetable != null)
+            {
+                if (timetable.Shifts == null)
+                {
+                    timetable.Shifts = new List<Shift>();
+                }
+
+                if (model.NewShiftViewModel != null && timetable.Shifts.Count <= 3 && ModelState.IsValid)
+                {
+                    timetable.Shifts.Add(new Shift()
+                    {
+                        Start = model.NewShiftViewModel.Start,
+                        End = model.NewShiftViewModel.End,
+                        EmployeesNumber = model.NewShiftViewModel.EmployeesNumber,
+                        IsQuaranteeWeekend = model.NewShiftViewModel.IsQuaranteeWeekend,
+                    });
+
+                    await _applicationContext.SaveChangesAsync();
+                }
+
+                return RedirectToAction("EditTimetable", new { id });
+            }
+
+            return NotFound();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> RemoveShift(int id, int index)
+        {
+            ViewBag.id = id;
+            var timetable = _applicationContext.Timetables.Include(x => x.Shifts).FirstOrDefault(x => x.Id == id);
+
+            if (timetable != null)
+            {
+                if (timetable.Shifts != null && timetable.Shifts.Count > index && index >= 0)
+                {
+                    _applicationContext.Shifts.Remove(timetable.Shifts[index]);
+                    //timetable.Shifts.RemoveAt(index);
+                }
+
+                await _applicationContext.SaveChangesAsync();
+
+                return RedirectToAction("EditTimetable", new { id });
             }
 
             return NotFound();
