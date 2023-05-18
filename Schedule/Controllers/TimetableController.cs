@@ -111,7 +111,7 @@ namespace Schedule.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> EditTimetable(int id, TimetableViewModel model)
+        public async Task<IActionResult> EditTimetable(int id)
         {
             ViewBag.id = id;
 
