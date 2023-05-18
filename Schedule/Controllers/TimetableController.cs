@@ -57,7 +57,7 @@ namespace Schedule.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult EditTimetable(int id, TimetableViewModel model)
+        public IActionResult EditTimetable(int id)
         {
             ViewBag.id = id;
             var timetable = _applicationContext.Timetables.Include(x => x.Shifts).FirstOrDefault(x => x.Id == id);
@@ -111,7 +111,7 @@ namespace Schedule.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> EditTimetable(int id)
+        public async Task<IActionResult> EditTimetable(int id, TimetableViewModel model)
         {
             ViewBag.id = id;
 
