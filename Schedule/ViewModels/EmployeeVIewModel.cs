@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Schedule.ViewModels;
-public class EmployeeVIewModel
+public class EmployeeViewModel
 {
     [Required]
     [Display(Name = "Имя")]

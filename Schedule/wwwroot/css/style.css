@@ -8,6 +8,7 @@
 }
 
 /* Logo */
+
 .logo h1 {
     font-family: var(--main-font-family);
     font-size: 40px;
@@ -42,7 +43,6 @@
     .mainmenu-area p {
         display: block;
         color: var(--button-color-hover);
-        font-size: 16px;
         font-size: 14px;
         text-decoration: none;
         padding: 15px;
@@ -121,25 +121,82 @@
     align-items: center;
 }
 
+.content-menu {
+    display: inline-flex;
+}
+
 .reg-log-menu {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0px;
 }
 
     .reg-log-menu .button {
         margin: 5px;
     }
 
+.shifts-blocks {
+    display: contents;
+}
+
+.content-block {
+    border: solid 1px;
+    border-color: #bbb;
+    border-radius: var(--window-form-border-radius);
+    box-shadow: 0px 0px 20px #ddd;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+    .content-block .button-white {
+        width: 100%;
+    }
+
+    .content-block .button {
+        width: 100%;
+    }
+
+    .content-block .card-element {
+        margin-bottom: 0px;
+    }
+
+    .content-block h2 {
+        color: #444;
+    }
+
+    .content-block p {
+        margin-bottom: 0px;
+    }
+
+        .content-block p span {
+            color: #000;
+        }
+
+    .content-block span {
+        color: #666;
+    }
+
+    .content-block .content-form {
+        margin: 30px;
+    }
+
+        .content-block .content-form > * {
+            margin: 15px 0 15px;
+        }
 
 .window {
     border: solid 1px;
     border-color: #bbb;
     border-radius: var(--window-form-border-radius);
     box-shadow: 0px 0px 20px #ddd;
-    width: 50%;
+    width: 60%;
     overflow: hidden;
+    flex: 0 0 auto;
 }
+
+    .window p {
+        margin-bottom: 0px;
+    }
 
     .window span {
         color: #666;
@@ -147,24 +204,27 @@
 
     .window .button {
         width: 100%;
-        margin-top: 30px;
     }
 
     .window form {
         margin: 30px;
     }
 
-    .window p {
-        text-align: center;
-    }
+        .window form > * {
+            margin: 15px 0 15px;
+        }
 
     .window a {
         text-decoration: none;
     }
 
         .window a:hover {
-            color: #222;
+            color: var(--button-color-hover);
         }
+
+.new-card {
+    min-height: 378px;
+}
 
 .single-schedule-element, .new-schedule-element {
     border: solid 1px;
@@ -179,12 +239,13 @@
 }
 
 .new-schedule-element {
+    background: url(../img/crossword.png) repeat scroll 0 0 var(--main-color);
     align-items: center;
     justify-content: center;
 }
 
     .new-schedule-element:hover {
-        background-color: #222;
+        background-color: var(--button-color-hover);
     }
 
 .single-schedule-element p {
@@ -237,9 +298,8 @@
 
 /* Buttons */
 
-.button {
+.button, .button-white {
     border-radius: var(--button-border-radius);
-    height: var(--button-height);
     background: none repeat scroll 0 0 var(--main-color);
     border: medium none;
     color: #fff;
@@ -254,8 +314,20 @@
         background-color: var(--button-color-hover)
     }
 
-/* Styles */
+.button-white {
+    background: none repeat scroll 0 0 #fff;
+    color: var(--main-color);
+    border: solid 1px var(--main-color);
+}
 
-.indent-bottom {
-    margin-bottom: 15px;
+    .button-white:hover {
+        background-color: var(--main-color);
+        color: #fff !important;
+        border-color: var(--main-color);
+    }
+
+/* Text */
+
+.text-description {
+    color: #666;
 }

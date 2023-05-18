@@ -1,0 +1,230 @@
+﻿@model Schedule.ViewModels.TimetableViewModel
+
+<div class="big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>@ViewBag.timetableName</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-area">
+    <div class="container">
+        <form method="post" asp-controller="Timetable" asp-action="EditTimetable">
+            <div asp-validation-summary="ModelOnly"></div>
+
+            <div class="content-block">
+                <div class="content-form">
+                    <h2>Основная информация</h2>
+                    <div>
+                        <label class="control-label" asp-for="TimetableName"></label><br />
+                        <input class="form-control" placeholder="Введиите название расписания" asp-for="TimetableName" />
+                        <span class="text-danger" asp-validation-for="TimetableName"></span>
+                    </div>
+                    <div>
+                        <label class="control-label" asp-for="Owner"></label> <br />
+                        <span>@ViewBag.owner</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <div class="content-form">
+                    <h2>Выходные дни</h2>
+                    <p class="text-description">
+                        Дни, которые будут выходными для всех работников этого расписания.
+                    </p>
+                    <div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="Monday" />
+                            <label class="form-check-label" asp-for="Monday"></label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="Tuesday" />
+                            <label class="form-check-label" asp-for="Tuesday"></label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="Wednesday" />
+                            <label class="form-check-label" asp-for="Wednesday"></label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="Thursday" />
+                            <label class="form-check-label" asp-for="Thursday"></label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="Friday" />
+                            <label class="form-check-label" asp-for="Friday"></label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="Saturday" />
+                            <label class="form-check-label" asp-for="Saturday"></label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="Sunday" />
+                            <label class="form-check-label" asp-for="Sunday"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <div class="content-form">
+                    <h2>Смены</h2>
+                    <p class="text-description">
+                        Добавление смен. Укажите время начала и окончания смены.
+                        Также следует указать необходимое количество работников для данной смены.
+                    </p>
+                    <div class="row gy-3">
+                        @if (Model != null && Model.ShiftViewModels != null && Model.ShiftViewModels.Count > 0)
+                        {
+                            @for (var i = 0; i < Model.ShiftViewModels.Count; i++)
+                            {
+                                <div class="col-lg-3">
+                                    <div class="content-block card-element">
+                                        <div class="content-form">
+                                            <div>
+                                                <label class="control-label" asp-for="@Model.ShiftViewModels[i].Start"></label><br />
+                                                <input class="form-control" type="time" asp-for="@Model.ShiftViewModels[i].Start" />
+
+                                            </div>
+                                            <div>
+                                                <label class="control-label" asp-for="@Model.ShiftViewModels[i].End"></label><br />
+                                                <input class="form-control" type="time" asp-for="@Model.ShiftViewModels[i].End" />
+
+                                            </div>
+                                            <div>
+                                                <label class="control-label" asp-for="@Model.ShiftViewModels[i].EmployeesNumber"></label><br />
+                                                <input class="form-control" type="number" asp-for="@Model.ShiftViewModels[i].EmployeesNumber" />
+
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" asp-for="@Model.ShiftViewModels[i].IsQuaranteeWeekend" />
+                                                <label class="form-check-label" asp-for="@Model.ShiftViewModels[i].IsQuaranteeWeekend"></label>
+                                            </div>
+                                            <input class="button-white button-remove-shift" type="submit" asp-controller="Shift"
+                                           asp-action="RemoveShift" asp-route-id="@ViewBag.id" asp-route-index="@i" value="Удалить">
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                        @if (Model != null && Model.NewShiftViewModel != null)
+                        {
+                            <div class="col-lg-3">
+                                <div class="content-block card-element">
+                                    <div class="content-form">
+                                        <div>
+                                            <label class="control-label" asp-for="@Model.NewShiftViewModel.Start"></label><br />
+                                            <input class="form-control" type="time" asp-for="@Model.NewShiftViewModel.Start" />
+
+                                        </div>
+                                        <div>
+                                            <label class="control-label" asp-for="@Model.NewShiftViewModel.End"></label><br />
+                                            <input class="form-control" type="time" asp-for="@Model.NewShiftViewModel.End" />
+
+                                        </div>
+                                        <div>
+                                            <label class="control-label" asp-for="@Model.NewShiftViewModel.EmployeesNumber"></label><br />
+                                            <input class="form-control" type="number" asp-for="@Model.NewShiftViewModel.EmployeesNumber" />
+
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" asp-for="@Model.NewShiftViewModel.IsQuaranteeWeekend" />
+                                            <label class="form-check-label" asp-for="@Model.NewShiftViewModel.IsQuaranteeWeekend"></label>
+                                        </div>
+                                        <input class="button" type="submit" asp-controller="Shift" asp-action="AddShift" asp-route-id="@ViewBag.id" value="Сохранить">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @*<div class="col-lg-3 new-card" id="hide">
+                        <input type="submit" asp-action="AddShift" asp-route-id="@ViewBag.id">
+                        <div class="new-schedule-element">
+                        <img src="/img/addNew.png" width="128" height="128" alt="Добавить">
+                        </div>
+                        </div>*@
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <div class="content-form">
+                    <h2>Работники</h2>
+                    <p class="text-description">
+                        Добавьте работников в ваше расписание.
+                    </p>
+                    <p class="text-description">
+                        Cотрудников: <span>@(Model?.EmployeeViewModels?.Count ?? 0)</span>
+                    </p>
+                    <a class="button" asp-controller="Timetable" asp-action="DeleteTimetable" asp-route-id="">Редактировать список</a>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <div class="content-form">
+                    <h2>Расписание</h2>
+                    <div class="content-center">
+                        <p class="text-description">
+                            Расписание еще не сформировано
+                        </p>
+                    </div>
+                    <a class="button" asp-controller="Timetable" asp-action="DeleteTimetable" asp-route-id="">Сформировать расписание</a>
+                </div>
+            </div>
+
+            <div class="content-menu column-gap-2">
+                <input class="button" type="submit" value="Сохранить" />
+                <a class="button-white" asp-controller="Timetable" asp-action="DeleteTimetable" asp-route-id="@ViewBag.id">Удалить расписание</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        //$(function() {
+        //    $("#button-add-new-shift").click(function() {
+        //        var i = $("#body-shift > div").length;
+        //        if (i < 4) {
+        //            $("#body-shift").append("<div class='col-lg-3'><div class='content-block card-element'><div class='content-form'><div><label class='control-label'>Начало смены</label><br /><input class='form-control' type='time' name='ShiftViewModels[" + i + "].Start' /><span class='text-danger' name='ShiftViewModels[" + i + "].Start'></span></div><div><label class='control-label'>Конец смены</label><br /><input class='form-control' type='time' name='ShiftViewModels[" + i + "].End' /><span class='text-danger' name='ShiftViewModels[" + i + "].End'></span></div><div><label class='control-label'>Количество работников</label><br /><input class='form-control' type='number' name='ShiftViewModels[" + i + "].EmployeesNumber' /><span class='text-danger' name='ShiftViewModels[" + i + "].EmployeesNumber'></span></div><div class='form-check form-switch'><input class='form-check-input' type='checkbox' name='ShiftViewModels[" + i + "].IsQuaranteeWeekend' value='false'><label class='form-check-label'>Гарантия выходного</label></div><a class='button-white button-remove-shift' onclick='Remove()'>Удалить</a></div></div></div>");
+
+        //            AddRemoveAction();
+        //        }
+        //        if (i >= 3) {
+        //            document.getElementById("button-add-new-shift").style.display = 'none';
+        //            document.getElementById("hide").style.minHeight = "0";
+        //        }
+        //    });
+
+        //    AddRemoveAction();
+
+        //    function AddRemoveAction() {
+        //        $(".button-remove-shift").each(function(index, item) {
+        //            $(item).click(function() {
+        //                $(this).closest('.col-lg-3').remove();
+        //            });
+        //        })
+        //    }
+        //});
+
+        //function Remove() {
+        //    document.getElementById("hide").style = "";
+        //    document.getElementById("hide").style = "";
+        //}
+
+        window.onload = function() {
+            var i = $("#body-shift > div").length;
+            if (i >= 4) {
+                document.getElementById("hide").style.display = 'none';
+                document.getElementById("hide").style.minHeight = "0";
+            }
+        };
+    </script>
+}

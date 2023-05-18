@@ -3,12 +3,14 @@
 namespace Schedule.ViewModels;
 public class LoginViewModel
 {
-    [Required]
+    [Required(ErrorMessage = "Поле {0} обязательно для ввода.")]
+    [StringLength(60)]
     [EmailAddress]
     [Display(Name = "Email")]
     public string? Email { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Поле {0} обязательно для ввода.")]
+    [StringLength(30, ErrorMessage = "Поле {0} должно иметь минимум {2} и максимум {1} символов.", MinimumLength = 8)]
     [DataType(DataType.Password)]
     [Display(Name = "Пароль")]
     public string? Password { get; set; }

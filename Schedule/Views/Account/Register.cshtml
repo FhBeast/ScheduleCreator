@@ -9,27 +9,27 @@
                 </div>
                 <form method="post" asp-controller="Account" asp-action="Register">
                     <div asp-validation-summary="ModelOnly"></div>
-                    <div class="indent-bottom">
+                    <div>
                         <label class="control-label" asp-for="Email"></label><br />
                         <input class="form-control" placeholder="Введиите email" asp-for="Email" />
                         <span class="text-danger" asp-validation-for="Email"></span>
                     </div>
-                    <div class="indent-bottom">
+                    <div>
                         <label class="control-label" asp-for="FirstName"></label><br />
                         <input class="form-control" placeholder="Введите имя" asp-for="FirstName" />
                         <span class="text-danger" asp-validation-for="FirstName"></span>
                     </div>
-                    <div class="indent-bottom">
+                    <div>
                         <label class="control-label" asp-for="LastName"></label><br />
                         <input class="form-control" placeholder="Введите фамилию" asp-for="LastName" />
                         <span class="text-danger" asp-validation-for="LastName"></span>
                     </div>
-                    <div class="indent-bottom">
+                    <div>
                         <label class="control-label" asp-for="Surname"></label>
                         <input class="form-control" placeholder="Введите отчество" asp-for="Surname">
                         <span class="text-danger" asp-validation-for="Surname"></span>
                     </div>
-                    <div class="indent-bottom">
+                    <div>
                         <label class="control-label" asp-for="Password"></label><br />
                         <input class="form-control" placeholder="Введите пароль" asp-for="Password" />
                         <span class="text-danger" asp-validation-for="Password"></span>

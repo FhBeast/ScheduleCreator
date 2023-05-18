@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Schedule.Models;
+using Schedule.Entities;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace Schedule.Controllers;
 public class HomeController : Controller
@@ -16,7 +18,9 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var timetables = _applicationContext.Timetables.ToList();
+        var username = User?.Identity?.Name;
+        var timetables = _applicationContext.Timetables.Include(x => x.Shifts).ToList().Where(x => x.Owner == username);
+
         return View(timetables);
     }
 
