@@ -179,7 +179,10 @@ public class TimetableController : Controller
     public async Task<IActionResult> DeleteTimetable(int id, TimetableDeleteViewModel model)
     {
         ViewBag.id = id;
-        var timetable = _applicationContext.Timetables.Include(x => x.Shifts).Include(x => x.Employees).FirstOrDefault(x => x.Id == id);
+        var timetable = _applicationContext.Timetables
+            .Include(x => x.Shifts)
+            .Include(x => x.Employees)
+            .FirstOrDefault(x => x.Id == id);
         var username = User?.Identity?.Name;
 
         if (timetable != null && timetable.Owner == username)
@@ -189,6 +192,11 @@ public class TimetableController : Controller
                 if (timetable.Shifts != null)
                 {
                     _applicationContext.Shifts.RemoveRange(timetable.Shifts);
+                }
+
+                if (timetable.Employees != null)
+                {
+                    _applicationContext.Employees.RemoveRange(timetable.Employees);
                 }
 
                 _applicationContext.Remove(timetable);
