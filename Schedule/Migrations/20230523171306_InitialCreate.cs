@@ -54,6 +54,22 @@ namespace Schedule.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Timetables",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TimetableName = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Owner = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Weekend = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Timetables", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -160,27 +176,6 @@ namespace Schedule.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Timetables",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TimetableName = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Owner = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Weekend = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Timetables", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Timetables_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table => new
                 {
@@ -221,6 +216,30 @@ namespace Schedule.Migrations
                     table.PrimaryKey("PK_Shifts", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Shifts_Timetables_TimetableId",
+                        column: x => x.TimetableId,
+                        principalTable: "Timetables",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tracking",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TimetableId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tracking", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tracking_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Tracking_Timetables_TimetableId",
                         column: x => x.TimetableId,
                         principalTable: "Timetables",
                         principalColumn: "Id");
@@ -283,8 +302,13 @@ namespace Schedule.Migrations
                 filter: "[TimetableName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Timetables_UserId",
-                table: "Timetables",
+                name: "IX_Tracking_TimetableId",
+                table: "Tracking",
+                column: "TimetableId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tracking_UserId",
+                table: "Tracking",
                 column: "UserId");
         }
 
@@ -313,13 +337,16 @@ namespace Schedule.Migrations
                 name: "Shifts");
 
             migrationBuilder.DropTable(
+                name: "Tracking");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Timetables");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Timetables");
         }
     }
 }

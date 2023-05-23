@@ -12,7 +12,7 @@ using Schedule.Models;
 namespace Schedule.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230507174135_InitialCreate")]
+    [Migration("20230523171306_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -235,10 +235,10 @@ namespace Schedule.Migrations
                     b.Property<string>("Owner")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TimetableName")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("State")
+                        .HasColumnType("int");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("TimetableName")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Weekend")
@@ -250,9 +250,30 @@ namespace Schedule.Migrations
                         .IsUnique()
                         .HasFilter("[TimetableName] IS NOT NULL");
 
+                    b.ToTable("Timetables");
+                });
+
+            modelBuilder.Entity("Schedule.Entities.Tracking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("TimetableId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TimetableId");
+
                     b.HasIndex("UserId");
 
-                    b.ToTable("Timetables");
+                    b.ToTable("Tracking");
                 });
 
             modelBuilder.Entity("Schedule.Models.User", b =>
@@ -394,10 +415,14 @@ namespace Schedule.Migrations
                         .HasForeignKey("TimetableId");
                 });
 
-            modelBuilder.Entity("Schedule.Entities.Timetable", b =>
+            modelBuilder.Entity("Schedule.Entities.Tracking", b =>
                 {
+                    b.HasOne("Schedule.Entities.Timetable", null)
+                        .WithMany("Tracks")
+                        .HasForeignKey("TimetableId");
+
                     b.HasOne("Schedule.Models.User", null)
-                        .WithMany("Timetables")
+                        .WithMany("Tracks")
                         .HasForeignKey("UserId");
                 });
 
@@ -406,11 +431,13 @@ namespace Schedule.Migrations
                     b.Navigation("Employees");
 
                     b.Navigation("Shifts");
+
+                    b.Navigation("Tracks");
                 });
 
             modelBuilder.Entity("Schedule.Models.User", b =>
                 {
-                    b.Navigation("Timetables");
+                    b.Navigation("Tracks");
                 });
 #pragma warning restore 612, 618
         }
