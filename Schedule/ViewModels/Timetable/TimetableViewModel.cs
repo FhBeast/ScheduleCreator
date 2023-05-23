@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Schedule.ViewModels.Employee;
+using Schedule.ViewModels.Shift;
+using System.ComponentModel.DataAnnotations;
 
-namespace Schedule.ViewModels;
+namespace Schedule.ViewModels.Timetable;
 public class TimetableViewModel
 {
     [Required(ErrorMessage = "Поле {0} обязательно для ввода.")]

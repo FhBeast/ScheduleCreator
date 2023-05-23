@@ -3,12 +3,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Schedule.Models;
 using Schedule.Entities;
-using Schedule.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Schedule.ViewModels.Timetable;
+using Schedule.ViewModels.Employee;
+using Schedule.ViewModels.Shift;
 
 namespace Schedule.Controllers;
 public class TimetableController : Controller

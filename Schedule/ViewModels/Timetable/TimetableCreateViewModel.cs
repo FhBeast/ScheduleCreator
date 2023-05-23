@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Schedule.ViewModels;
+namespace Schedule.ViewModels.Timetable;
 public class TimetableCreateViewModel
 {
     [Required(ErrorMessage = "Поле {0} обязательно для ввода.")]
