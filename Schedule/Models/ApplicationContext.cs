@@ -14,4 +14,5 @@ public class ApplicationContext : IdentityDbContext<User>
     public DbSet<Timetable> Timetables { get; set; }    
     public DbSet<Shift> Shifts { get; set; }
     public DbSet<Employee> Employees { get; set; }
+    public DbSet<Tracking> Tracking { get; set; }
 }
