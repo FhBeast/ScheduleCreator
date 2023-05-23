@@ -31,4 +31,6 @@ public class TimetableViewModel
     public List<EmployeeViewModel>? EmployeeViewModels { get; set; }
 
     public ShiftViewModel? NewShiftViewModel { get; set; }
+
+    public EmployeeViewModel? NewEmployeeViewModel { get; set; }
 }

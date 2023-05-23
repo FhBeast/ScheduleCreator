@@ -11,4 +11,7 @@ public class EmployeeViewModel
     public string? LastName { get; set; }
     [Display(Name = "Отчество")]
     public string? Surname { get; set; }
+    [EmailAddress]
+    [Display(Name = "Email")]
+    public string? Email { get; set; }
 }
