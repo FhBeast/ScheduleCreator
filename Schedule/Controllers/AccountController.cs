@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Schedule.ViewModels;
 using Schedule.Models;
 using Microsoft.AspNetCore.Identity;
+using Schedule.ViewModels.Authorization;
 
 namespace Schedule.Controllers;
 public class AccountController : Controller

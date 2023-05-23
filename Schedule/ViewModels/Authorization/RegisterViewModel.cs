@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Schedule.ViewModels;
+namespace Schedule.ViewModels.Authorization;
 public class RegisterViewModel
-{        
+{
     [Required(ErrorMessage = "Поле {0} обязательно для ввода.")]
     [StringLength(60)]
     [EmailAddress]
