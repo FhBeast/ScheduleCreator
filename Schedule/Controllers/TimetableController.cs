@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Schedule.ViewModels.Timetable;
 using Schedule.ViewModels.Employee;
 using Schedule.ViewModels.Shift;
+using Schedule.Services;
 
 namespace Schedule.Controllers;
 public class TimetableController : Controller
@@ -134,7 +135,7 @@ public class TimetableController : Controller
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> EditTimetable(int id, TimetableViewModel model, bool generateTimetable = false)
+    public async Task<IActionResult> EditTimetable(int id, TimetableViewModel model)
     {
         ViewBag.id = id;
 
@@ -151,7 +152,7 @@ public class TimetableController : Controller
         else
         {
             return NotFound();
-        }        
+        }
     }
 
     [Authorize]
@@ -477,5 +478,38 @@ public class TimetableController : Controller
         }
 
         return result;
+    }
+
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> GenerateTimetable(int id, TimetableViewModel model)
+    {
+        ViewBag.id = id;
+
+        var result = await SaveChanges(id, model);
+
+        if (result == SaveResult.Success)
+        {
+            var timetable = _applicationContext.Timetables
+                .Include(x => x.Shifts)
+                .Include(x => x.Employees)
+                .FirstOrDefault(x => x.Id == id);
+            
+            if (timetable != null)
+            {
+                TimetableGenerator.Generate(timetable);
+                await _applicationContext.SaveChangesAsync();
+            }
+
+            return View(model);
+        }
+        else if (result == SaveResult.Failure)
+        {
+            return View(model);
+        }
+        else
+        {
+            return NotFound();
+        }
     }
 }
