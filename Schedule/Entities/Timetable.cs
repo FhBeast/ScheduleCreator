@@ -13,4 +13,6 @@ public class Timetable : BaseEntity
     public string? Weekend { get; set; }
     public List<Shift>? Shifts { get; set; }
     public List<Employee>? Employees { get; set; }
+    public TimetableState State { get; set; }
+    public List<Tracking> Tracks { get; set; }
 }
