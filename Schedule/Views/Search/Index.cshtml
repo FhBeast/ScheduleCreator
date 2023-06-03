@@ -1,0 +1,62 @@
+﻿@model Schedule.ViewModels.Search.SearchViewModel
+@{
+    ViewData["Title"] = "Поиск";
+}
+
+<div class="big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Поиск</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-area">
+    <div class="container">
+        <div class="row gy-4">
+
+            <div class="search-block">
+                <div class="content-form">
+                    <form method="post" asp-controller="Search" asp-action="Index" class="search">
+                        <input class="form-control" placeholder="Введиите название расписания" asp-for="SearchText" />
+                        <input class="button" type="submit" value="Поиск" />
+                    </form>
+                </div>
+            </div>
+
+            @if (Model.TimetableSearchingViewModels != null && Model.TimetableSearchingViewModels.Count() != 0)
+            {
+                @foreach (var timetable in Model.TimetableSearchingViewModels)
+                {
+                    <form method="post" class="search">
+                        <div class="col-lg-3">
+                            <div class="single-schedule-element">
+                                <div class="small-title-area schedule-name">
+                                    <p>@timetable.TimetableName</p>
+                                </div>
+                                <p class="schedule-stat">Владелец: <span>@timetable.Owner</span></p>
+                                <p class="schedule-stat">Cотрудников: <span>@timetable.EmployeesNumber</span></p>
+                                <p class="schedule-stat">Cмен: <span>@timetable.ShiftsNumber</span></p>
+
+                                <input class="button" type="submit" asp-controller="Search"
+                               asp-action="TrackTimetable" asp-route-name="@timetable.TimetableName" value="Отслеживать" />
+                            </div>
+                        </div>
+                    </form>
+                }
+            }
+            else
+            {
+                if (Model.SearchText != null)
+                {
+                    <div class="content-center">
+                        <h2>Ничего нет</h2>
+                        <p>Ничего не найдено...</p>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
