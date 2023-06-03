@@ -4,4 +4,5 @@ public enum TimetableState
     NotFormed,
     Formed,
     Error,
+    UpdateRequired,
 }
