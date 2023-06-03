@@ -27,22 +27,123 @@
                     </div>
                     <div>
                         <label class="control-label" asp-for="Owner"></label> <br />
-                        <input type="hidden" placeholder="Введиите название расписания" asp-for="Owner" />
+                        <input type="hidden" asp-for="Owner" />
                         <span>@Model.Owner</span>
                     </div>
                 </div>
             </div>
 
-            @*==== Timetable ====*@
+            @*==== Timetable ====*@            
             <div class="content-block">
                 <div class="content-form">
                     <h2>Расписание</h2>
-                    <div class="content-center">
+                    <input type="hidden" asp-for="State" />
+                    @if (Model.State == Schedule.Entities.TimetableState.NotFormed)
+                    {
+                        <div class="content-center">
+                            <p class="text-description">
+                                Расписание еще не сформировано
+                            </p>
+                        </div>
+                        <input class="button" type="submit" asp-controller="Timetable" asp-action="GenerateTimetable" asp-route-id="@ViewBag.id" value="Сформировать расписание">
+                    }
+                    else if (Model.State == Schedule.Entities.TimetableState.Formed)
+                    {
+                        <div class="table-responsive table-border">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    @{
+                                        int shiftsNumber = 0;
+                                        if (@Model.ShiftViewModels != null)
+                                        {
+                                            shiftsNumber = @Model.ShiftViewModels.Count;
+
+                                            <tr class="table-primary">
+                                                <th scope="col" rowspan="2">#</th>
+                                                <th scope="col" rowspan="2">Работники</th>
+                                                <th scope="col" colspan="@shiftsNumber">Понедельник</th>
+                                                <th scope="col" colspan="@shiftsNumber">Вторник</th>
+                                                <th scope="col" colspan="@shiftsNumber">Среда</th>
+                                                <th scope="col" colspan="@shiftsNumber">Четверг</th>
+                                                <th scope="col" colspan="@shiftsNumber">Пятница</th>
+                                                <th scope="col" colspan="@shiftsNumber">Суббота</th>
+                                                <th scope="col" colspan="@shiftsNumber">Воскресенье</th>
+                                            </tr>
+                                            <tr class="table-primary">
+                                                @for (int i = 0; i < 7; i++)
+                                                {
+                                                    for (int j = 0; j < shiftsNumber; j++)
+                                                    {
+                                                        <th scope="col">
+                                                            @Model.ShiftViewModels[j].Start<br />
+                                                            @Model.ShiftViewModels[j].End
+                                                        </th>
+                                                    }
+                                                }
+                                            </tr>
+                                        }
+                                    }
+                                </thead>
+                                <tbody>
+                                    @if (Model != null && Model.EmployeeViewModels != null && Model.EmployeeViewModels.Count > 0)
+                                    {
+                                        @for (var i = 0; i < Model.EmployeeViewModels.Count; i++)
+                                        {
+                                            <tr>
+                                                <th scope="row">@(i + 1)</th>
+                                                <td>
+                                                    @Model.EmployeeViewModels[i].LastName
+                                                    @Model.EmployeeViewModels[i].FirstName
+                                                </td>
+                                                @for (int j = 0; j < 7 * shiftsNumber; j++)
+                                                {
+                                                    @if (Model.EmployeeViewModels[i].WorkDays?[j] == '1')
+                                                    {
+                                                        <td class="table-info"></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td></td>
+                                                    }
+                                                }
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <input class="button" type="submit" asp-controller="Timetable" asp-action="GenerateTimetable" asp-route-id="@ViewBag.id" value="Обновить">
+                    }
+                    else if (Model.State == Schedule.Entities.TimetableState.UpdateRequired)
+                    {
+                        <div class="content-center">
+                            <p class="text-description text-danger">
+                                Были внесены изменения. Требуется обновление.
+                            </p>
+                        </div>
+                        <input class="button" type="submit" asp-controller="Timetable" asp-action="GenerateTimetable" asp-route-id="@ViewBag.id" value="Обновить">
+                    }
+                    else if (Model.State == Schedule.Entities.TimetableState.Error)
+                    {
+                        <div class="content-center">
+                            <p class="text-description text-danger">
+                                Неудалось составить расписание с данными параметрами.
+                            </p>
+                        </div>
+
                         <p class="text-description">
-                            Расписание еще не сформировано
+                            Попробуйте совершить следующие действия:
                         </p>
-                    </div>
-                    <a class="button" asp-controller="Timetable" asp-action="GenerateTimetable" asp-route-id="@ViewBag.id">Сформировать расписание</a>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Уменьшить количество смен</li>
+                            <li class="list-group-item">Уменьшить количество работников на смену</li>
+                            <li class="list-group-item">Отключить гарантию выходного дня</li>
+                            <li class="list-group-item">Увеличить количество работников</li>
+                        </ul>
+
+                        <input class="button" type="submit" asp-controller="Timetable" asp-action="GenerateTimetable" asp-route-id="@ViewBag.id" value="Сформировать расписание">
+                    }
                 </div>
             </div>
 
@@ -206,6 +307,7 @@
                             <div class="emp-list-block gy-5">
                                 @for (var i = 0; i < Model.EmployeeViewModels.Count; i++)
                                 {
+                                    <input type="hidden" asp-for="@Model.EmployeeViewModels[i].WorkDays" />
                                     <div class="row emp-element">
                                         <div class="col-auto">
                                             <input class="form-control" placeholder="Фамилия" asp-for="@Model.EmployeeViewModels[i].LastName" />
@@ -233,7 +335,7 @@
                         }
                     </div>
                 </div>
-            </div>            
+            </div>
 
             @*==== Buttons ====*@
             <div class="content-menu column-gap-2">
