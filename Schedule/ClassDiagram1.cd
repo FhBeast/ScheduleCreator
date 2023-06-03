@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Schedule.Controllers.AccountController">
+    <Position X="5.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAABAAAIAAAABAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.Controllers.HomeController">
+    <Position X="9.5" Y="2.25" Width="1.5" />
+    <AssociationLine Name="_applicationContext" Type="Schedule.Models.ApplicationContext" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.188" Y="4.511" />
+        <Point X="10.188" Y="4.875" />
+        <Point X="11.5" Y="4.875" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAgAAAIAAAAQAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_applicationContext" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Schedule.Controllers.SearchController">
+    <Position X="11.5" Y="2.25" Width="1.5" />
+    <AssociationLine Name="_applicationContext" Type="Schedule.Models.ApplicationContext" FixedToPoint="true">
+      <Path>
+        <Point X="12.25" Y="3.867" />
+        <Point X="12.25" Y="4.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAABEAAAAAAAA=</HashCode>
+      <FileName>Controllers\SearchController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_applicationContext" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Schedule.Controllers.TimetableController">
+    <Position X="7.5" Y="2.25" Width="1.5" />
+    <AssociationLine Name="_applicationContext" Type="Schedule.Models.ApplicationContext" FixedFromPoint="true">
+      <Path>
+        <Point X="9" Y="5.375" />
+        <Point X="11.5" Y="5.375" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gAIAAgAAACAAAAAAEACAgQABAAAAAAAAAAABAAAAACE=</HashCode>
+      <FileName>Controllers\TimetableController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_applicationContext" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Mvc.Controller" Collapsed="true">
+    <Position X="8.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Schedule.Entities.BaseEntity">
+    <Position X="5.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\BaseEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.Entities.Employee">
+    <Position X="5.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAAAIAAAAAAAAABgAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Entities\Employee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.Entities.Shift">
+    <Position X="7.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIBgAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Shift.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.Entities.Timetable">
+    <Position X="9.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAQEAAAAgAAAAAAAAACAAAAAAAAAAABEAAAAA=</HashCode>
+      <FileName>Entities\Timetable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.Entities.Tracking" Collapsed="true">
+    <Position X="11.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Tracking.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.Models.ApplicationContext">
+    <Position X="11.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAgAAAAAAAAACAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ApplicationContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schedule.Models.User">
+    <Position X="11.5" Y="9.5" Width="1.5" />
+    <InheritanceLine Type="Microsoft.AspNetCore.Identity.IdentityUser" FixedToPoint="true">
+      <Path>
+        <Point X="12.25" Y="9.191" />
+        <Point X="12.25" Y="9.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAEAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Identity.IdentityUser" Collapsed="true">
+    <Position X="11.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
