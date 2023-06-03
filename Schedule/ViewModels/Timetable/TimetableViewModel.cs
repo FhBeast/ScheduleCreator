@@ -1,6 +1,7 @@
 ﻿using Schedule.ViewModels.Employee;
 using Schedule.ViewModels.Shift;
 using System.ComponentModel.DataAnnotations;
+using Schedule.Entities;
 
 namespace Schedule.ViewModels.Timetable;
 public class TimetableViewModel
@@ -35,4 +36,6 @@ public class TimetableViewModel
     public ShiftViewModel? NewShiftViewModel { get; set; }
 
     public EmployeeViewModel? NewEmployeeViewModel { get; set; }
+
+    public TimetableState State { get; set; }
 }
