@@ -1,0 +1,99 @@
+﻿@model Schedule.ViewModels.Timetable.TimetableEmployeeViewModel
+
+@*==== Title ====*@
+<div class="big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Редактирование расписания</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-area">
+    <div class="container">
+
+        <div class="content-block">
+            <div class="content-form">
+                <h2>Основная информация</h2>
+                <div>
+                    <label class="control-label" asp-for="TimetableName"></label><br />
+                    <span>@Model.TimetableName</span>
+                </div>
+                <div>
+                    <label class="control-label" asp-for="Owner"></label> <br />
+                    <span>@Model.Owner</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <div class="content-form">
+                <h2>Расписание</h2>
+
+                @if (@Model.Employee != null)
+                {
+                    <p class="text-description">
+                        @Model.Employee.LastName @Model.Employee.FirstName @Model.Employee.Surname
+                    </p>
+                }
+
+                @if (Model.ShiftViewModels != null && Model.Employee != null && Model.Employee.WorkDays != null)
+                {
+                    var shiftsNumver = Model.ShiftViewModels.Count;
+                    var daysOnWeek = new Dictionary<int, string>()
+                {
+                { 0, "Понедельник"},
+                { 1, "Вторник"},
+                { 2, "Среда"},
+                { 3, "Четверг"},
+                { 4, "Пятница"},
+                { 5, "Суббота"},
+                { 6, "Воскресенье"},
+                };
+
+                    <p class="text-description">
+                        Неделя №1:
+                    </p>
+
+                    <div>
+                        @for (int i = 0; i < 7; i++)
+                        {
+                            string day;
+                            daysOnWeek.TryGetValue(i, out day);
+
+                            <p class="text-description">@day</p>
+                            <ul class="list-group list-group-flush">
+
+                                @for (int j = 0; j < shiftsNumver; j++)
+                                {
+                                    if (Model.Employee.WorkDays[i * shiftsNumver + j] == '1')
+                                    {
+                                        <li class="list-group-item list-group-item-info">@Model.ShiftViewModels[j].Start - @Model.ShiftViewModels[j].End</li>
+                                    }
+                                    else
+                                    {
+                                        <li class="list-group-item">@Model.ShiftViewModels[j].Start - @Model.ShiftViewModels[j].End</li>
+                                    }
+                                }
+
+                            </ul>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-description">
+                        Расписание еще не составлено владельцем, либо ваш Email не был указан.
+                    </p>
+                }
+                <form method="post">
+                    <input class="button-white" type="submit" asp-controller="Timetable"
+                           asp-action="UntrackTimetable" asp-route-id="@ViewBag.id" value="Перестать отслеживать" />
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
