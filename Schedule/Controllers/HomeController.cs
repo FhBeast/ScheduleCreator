@@ -19,11 +19,23 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var username = User?.Identity?.Name;
-        var timetables = _applicationContext.Timetables
+
+        var user = _applicationContext.Users
+            .Include(x => x.Tracks)
+            .FirstOrDefault(x => x.UserName == username);
+
+        var timetables = new List<Timetable>();
+
+        if (user != null)
+        {
+            timetables = _applicationContext.Timetables
             .Include(x => x.Shifts)
             .Include(x => x.Employees)
             .ToList()
-            .Where(x => x.Owner == username);
+            .Where(x => x.Owner == username || (x.Tracks != null && x.Tracks
+                .Any(x => user.Tracks
+                    .Contains(x)))).ToList();
+        }        
 
         return View(timetables);
     }
