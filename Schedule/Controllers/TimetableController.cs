@@ -102,7 +102,8 @@ public class TimetableController : Controller
                         LastName = employee.LastName,
                         Surname = employee.Surname,
                         Email = employee.Email,
-                    });
+                        WorkDays = employee.WorkDays,
+                    }); ;
                 }
             }
 
@@ -110,16 +111,17 @@ public class TimetableController : Controller
             {
                 TimetableName = timetable.TimetableName,
                 Owner = timetable.Owner,
-                Monday = timetable?.Weekend?[0] == '1',
-                Tuesday = timetable?.Weekend?[1] == '1',
-                Wednesday = timetable?.Weekend?[2] == '1',
-                Thursday = timetable?.Weekend?[3] == '1',
-                Friday = timetable?.Weekend?[4] == '1',
-                Saturday = timetable?.Weekend?[5] == '1',
-                Sunday = timetable?.Weekend?[6] == '1',
+                Monday = timetable.Weekend?[0] == '1',
+                Tuesday = timetable.Weekend?[1] == '1',
+                Wednesday = timetable.Weekend?[2] == '1',
+                Thursday = timetable.Weekend?[3] == '1',
+                Friday = timetable.Weekend?[4] == '1',
+                Saturday = timetable.Weekend?[5] == '1',
+                Sunday = timetable.Weekend?[6] == '1',
                 ShiftViewModels = shiftViewModels,
                 EmployeeViewModels = employeeViewModels,
                 NewEmployeeViewModel = new EmployeeViewModel(),
+                State = timetable.State,
             };
 
             if (shiftViewModels.Count <= 3)
@@ -143,7 +145,8 @@ public class TimetableController : Controller
 
         if (result == SaveResult.Success)
         {
-            return RedirectToAction("Index", "Home");
+            model.State = TimetableState.UpdateRequired;
+            return View(model);
         }
         else if (result == SaveResult.Failure)
         {
@@ -200,6 +203,11 @@ public class TimetableController : Controller
                 if (timetable.Employees != null)
                 {
                     _applicationContext.Employees.RemoveRange(timetable.Employees);
+                }
+
+                if (timetable.Tracks != null)
+                {
+                    _applicationContext.Tracks.RemoveRange(timetable.Tracks);
                 }
 
                 _applicationContext.Remove(timetable);
@@ -473,6 +481,7 @@ public class TimetableController : Controller
             }
 
             timetable.Employees = employees;
+            timetable.State = TimetableState.UpdateRequired;
 
             await _applicationContext.SaveChangesAsync();
         }
@@ -494,22 +503,89 @@ public class TimetableController : Controller
                 .Include(x => x.Shifts)
                 .Include(x => x.Employees)
                 .FirstOrDefault(x => x.Id == id);
-            
+
             if (timetable != null)
             {
                 TimetableGenerator.Generate(timetable);
                 await _applicationContext.SaveChangesAsync();
             }
 
-            return View(model);
+            return RedirectToAction("EditTimetable", new { id });
         }
         else if (result == SaveResult.Failure)
         {
-            return View(model);
+            return RedirectToAction("EditTimetable", new { id });
         }
         else
         {
             return NotFound();
         }
+    }
+
+    [Authorize]
+    [HttpGet]
+    public IActionResult ViewTimetable(int id)
+    {
+        ViewBag.id = id;
+
+        var timetable = _applicationContext.Timetables
+                .Include(x => x.Shifts)
+                .Include(x => x.Employees)
+                .FirstOrDefault(x => x.Id == id);
+
+        var username = User.Identity?.Name;
+
+        if (timetable != null && timetable.Employees != null && timetable.Shifts != null)
+        {
+
+            var timetableEmpViewModel = new TimetableEmployeeViewModel()
+            {
+                TimetableName = timetable.TimetableName,
+                Owner = timetable.Owner,
+                Employee = new EmployeeViewModel(),
+            };
+
+            var employee = timetable.Employees.FirstOrDefault(x => x.Email == username);
+
+            if (employee != null)
+            {
+                timetableEmpViewModel.Employee.FirstName = employee.FirstName;
+                timetableEmpViewModel.Employee.LastName = employee.LastName;
+                timetableEmpViewModel.Employee.Surname = employee.Surname;
+                timetableEmpViewModel.Employee.WorkDays = employee.WorkDays;
+            }
+
+            timetableEmpViewModel.ShiftViewModels = timetable.Shifts.Select(x => new ShiftViewModel()
+            {
+                Start = x.Start,
+                End = x.End,
+            }).ToList();
+
+            return View(timetableEmpViewModel);
+        }
+
+        return NotFound();
+    }
+
+    public async Task<IActionResult> UntrackTimetable(int id)
+    {
+        var username = User.Identity?.Name;
+
+        var timetable = _applicationContext.Timetables
+            .Include(x => x.Tracks)
+            .FirstOrDefault(x => x.Id == id);
+        var user = _applicationContext.Users
+            .Include(x => x.Tracks)
+            .FirstOrDefault(x => x.UserName == username);
+
+        if (user != null && timetable != null)
+        {
+            var tracks = user.Tracks.Intersect(timetable.Tracks);
+
+            _applicationContext.RemoveRange(tracks);
+            await _applicationContext.SaveChangesAsync();
+        }        
+
+        return RedirectToAction("Index", "Home");
     }
 }
