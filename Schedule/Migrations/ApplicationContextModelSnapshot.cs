@@ -270,7 +270,7 @@ namespace Schedule.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tracking");
+                    b.ToTable("Tracks");
                 });
 
             modelBuilder.Entity("Schedule.Models.User", b =>

@@ -222,7 +222,7 @@ namespace Schedule.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tracking",
+                name: "Tracks",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -232,14 +232,14 @@ namespace Schedule.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tracking", x => x.Id);
+                    table.PrimaryKey("PK_Tracks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tracking_AspNetUsers_UserId",
+                        name: "FK_Tracks_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Tracking_Timetables_TimetableId",
+                        name: "FK_Tracks_Timetables_TimetableId",
                         column: x => x.TimetableId,
                         principalTable: "Timetables",
                         principalColumn: "Id");
@@ -302,13 +302,13 @@ namespace Schedule.Migrations
                 filter: "[TimetableName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tracking_TimetableId",
-                table: "Tracking",
+                name: "IX_Tracks_TimetableId",
+                table: "Tracks",
                 column: "TimetableId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tracking_UserId",
-                table: "Tracking",
+                name: "IX_Tracks_UserId",
+                table: "Tracks",
                 column: "UserId");
         }
 
@@ -337,7 +337,7 @@ namespace Schedule.Migrations
                 name: "Shifts");
 
             migrationBuilder.DropTable(
-                name: "Tracking");
+                name: "Tracks");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

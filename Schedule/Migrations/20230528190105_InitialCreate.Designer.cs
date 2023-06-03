@@ -12,7 +12,7 @@ using Schedule.Models;
 namespace Schedule.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230523171306_InitialCreate")]
+    [Migration("20230528190105_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -273,7 +273,7 @@ namespace Schedule.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tracking");
+                    b.ToTable("Tracks");
                 });
 
             modelBuilder.Entity("Schedule.Models.User", b =>
